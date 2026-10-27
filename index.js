@@ -6,17 +6,16 @@ app.use(express.json());
 app.post("/register", (req, res) => {
   const { name, email, password, gender } = req.body;
 
-  let errors = {
-    name: "",
-    email: "",
-    password: "",
-    gender: "",
-  };
+  let errors = {};
 
   if (!name) errors.name = "Your name is required.";
   if (!email) errors.email = "Your email is required.";
+  if (!password) errors.password = "Password is necessary to proceed";
+  if (!gender) errors.gender = "What is your gender?";
 
-  console.log(name, email, password, gender);
+  if (errors.name || errors.email || errors.password || errors.gender) {
+    return res.send(errors);
+  }
 
   res.send("Account registered successfully");
 });
